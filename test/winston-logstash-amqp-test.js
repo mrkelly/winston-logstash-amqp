@@ -1,39 +1,31 @@
-/*
- * winston-amqp-test.js: Tests for instances of the AMQP transport
- *
- * (C) 2011 Krispin Schulz
- * MIT LICENSE
- *
- */
-
 var path = require('path'),
     vows = require('vows'),
     assert = require('assert'),
     winston = require('winston'),
     helpers = require('winston/test/helpers'),
-    AMQP = require('../lib/winston-amqp').AMQP;
+    LogstashAMQP = require('../lib/winston-logstash-amqp').LogstashAMQP;
 
-var config = helpers.loadConfig(__dirname);
+//var config = helpers.loadConfig(__dirname);
 
-vows.describe('winston-amqp').addBatch({
- "An instance of the AMQP Transport": {
+vows.describe('winston-logstash-amqp').addBatch({
+ "An instance of the LogstashAMQP Transport": {
     topic: function() {
-      return new (AMQP)(config.transports.amqp);
+      return new (LogstashAMQP)(config.transports.amqp);
     },
-    "is an instance of the AMQP transport": function(topic) {
-      assert.instanceOf(topic, AMQP);
+    "is an instance of the LogstashAMQP transport": function(topic) {
+      assert.instanceOf(topic, LogstashAMQP);
     },
     "has a log function defined": function (topic) {      
       assert.isFunction(topic.log);
     }
-    // "the log() method": helpers.testNpmLevels(transport, "should log messages to AMQP server", function (ign, err, logged) {
+    // "the log() method": helpers.testNpmLevels(transport, "should log messages to LogstashAMQP server", function (ign, err, logged) {
     //   assert.isTrue(!err);
     //   assert.isTrue(logged);
     // })
   },
-  "An AMQP Transport instance with a custom exchange definition": {
+  "An LogstashAMQP Transport instance with a custom exchange definition": {
     topic: function() {
-      return new (AMQP)({
+      return new (LogstashAMQP)({
         exchange: {
           name: "winston.log",
           properties: {
@@ -53,9 +45,9 @@ vows.describe('winston-amqp').addBatch({
       });
     }
   },
-  "An AMQP Transport instance with no custom transform message function specified": {
+  "An LogstashAMQP Transport instance with no custom transform message function specified": {
     topic: function() {
-      return new (AMQP)();
+      return new (LogstashAMQP)();
     },
     "uses the default message transform function": function(topic) {
       var level = "info"
@@ -68,9 +60,9 @@ vows.describe('winston-amqp').addBatch({
       assert.deepEqual(actualTransformedMessage, expectedTransformedMessage);
     }
   },
-  "An AMQP Transport instance with a custom transform message function specified": {
+  "An LogstashAMQP Transport instance with a custom transform message function specified": {
     topic: function() {
-      return new (AMQP)({
+      return new (LogstashAMQP)({
         transformMessage: function(level, msg, meta) {
           return level + "::" + msg + "::" + JSON.stringify(meta);
         }
@@ -90,12 +82,12 @@ vows.describe('winston-amqp').addBatch({
 }).export(module);
 
 /*.addBatch({
-  "An instance of the AMQP Transport": {
+  "An instance of the LogstashAMQP Transport": {
     "when the timeout has fired": {
       topic: function () {
         setTimeout(this.callback, config.transports.amqp.keepAlive);
       },
-      "the log() method": helpers.testNpmLevels(transport, "should log messages to AMQP server", function (ign, err, logged) {
+      "the log() method": helpers.testNpmLevels(transport, "should log messages to LogstashAMQP server", function (ign, err, logged) {
         assert.isTrue(!err);
         assert.isTrue(logged);
       })

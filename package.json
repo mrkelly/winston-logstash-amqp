@@ -1,22 +1,25 @@
 {
-  "name": "winston-amqp",
-  "description": "An AMQP transport for winston",
-  "version": "0.0.3",
-  "author": "Krispin Schulz <krispinone@gmail.com>",
+  "name": "winston-logstash-amqp",
+  "description": "A Logstash AMQP transport for winston",
+  "version": "0.0.1",
+  "authors": [
+    "Krispin Schulz <krispinone@gmail.com>",
+    "Michael Kelly <michael@mikeryankelly.com"
+  ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/kr1sp1n/winston-amqp.git" 
+    "url": "https://github.com/mrkelly/winston-logstash-amqp.git" 
   },
-  "keywords": ["logging", "sysadmin", "tools", "winston", "amqp", "rabbitmq"],
+  "keywords": ["logging", "sysadmin", "tools", "winston", "amqp", "rabbitmq", "logstash"],
   "dependencies": {
-    "amqp": "0.1.x",
-    "winston": "0.5.x"
+    "amqp": "0.2.x",
+    "winston": "0.7.x"
   },
   "devDependencies": {
     "vows": "0.5.x",
     "colors": "0.5.x"
   },
-  "main": "./lib/winston-amqp",
+  "main": "./lib/winston-logstash-amqp",
   "scripts": { "test": "vows --spec" },
-  "engines": { "node": ">= 0.4.0" }
+  "engines": { "node": ">= 0.8.0" }
 }

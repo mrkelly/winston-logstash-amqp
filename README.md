@@ -1,43 +1,34 @@
-# winston-amqp
+# winston-logstash-amqp
 
-An AMQP transport for [winston][0].
+A AMQP transport for [winston][0] that publishes logs consumed by Logstash.
 Use [winston][0] logging with RabbitMQ to react on log messages.
-Inspired by [winston-mongodb][1].
-
-[![Build Status](https://travis-ci.org/kr1sp1n/winston-amqp.png?branch=master)](https://travis-ci.org/kr1sp1n/winston-amqp)
+Inspired by [winston-amqp][1].
 
 ## Installation
 
-### Installing npm (node package manager)
-```
-  curl http://npmjs.org/install.sh | sh
-```
-
-### Installing winston-amqp
-```
-  [sudo] npm install winston-amqp
+### Installing winston-logstash-amqp
+```bash
+  npm install --save winston-logstash-amqp
 ```
 
 ## Usage
 ``` js
-  var AMQP = require('winston-amqp').AMQP;
-  winston.add(AMQP, options);
+  var LogstashAMQP = require('winston-logstash-amqp').LogstashAMQP;
+  winston.add(LogstashAMQP, options);
 ```
 
-The AMQP transport takes the following options:
+The LogstashAMQP transport takes the following options:
 
-* __level:__ Level of messages that this transport should log. 
-* __silent:__ Boolean flag indicating whether to suppress output.
-* __exchange__: The name of the exchange you want to push log messages in, defaults to 'winston.log'.
 * __host:__ The host running RabbitMQ, defaults to localhost.
 * __port:__ The port on the host that RabbitMQ is running on, defaults to 5672.
 * __vhost:__ virtual host entry for the RabbitMQ server, defaults to '/'
 * __login:__ login for the RabbitMQ server, defaults to 'guest'
 * __password:__ password for the RabbitMQ server, defaults to 'guest'
+* __level:__ Level of messages that this transport should log. 
+* __silent:__ Boolean flag indicating whether to suppress output.
+* __routingKey:__ The routing key to use when publishing to the defined exchange.
+* __appName:__ The application name to place in `@fields`
 
-*Metadata:* Logged as part of the message body with key 'meta' (see examples/subscribe.js).
-
-#### Author: [Krispin Schulz](http://kr1sp1n.tumblr.com/)
 
 [0]: https://github.com/indexzero/winston
-[1]: https://github.com/indexzero/winston-mongodb
+[1]: https://github.com/kr1sp1n/winston-ampq
